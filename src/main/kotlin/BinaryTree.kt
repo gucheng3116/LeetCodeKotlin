@@ -93,6 +93,7 @@ fun levelOrderVisit(root: TreeNode?) {
     }
 }
 
+// create by depth with array
 fun create(array: Array<Int?>) : TreeNode? {
     if (array.size == 0 || array[0] == null) {
         return null
