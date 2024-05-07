@@ -1,4 +1,4 @@
-class LenthOfLongestSubString3 {
+class LengthOfLongestSubString3 {
     fun lengthOfLongestSubstring(s: String): Int {
         val set = HashSet<Char>()
         var result = 0
@@ -19,7 +19,7 @@ class LenthOfLongestSubString3 {
 }
 
 fun main() {
-    val solution = LenthOfLongestSubString3()
+    val solution = LengthOfLongestSubString3()
     println("result is ${solution.lengthOfLongestSubstring("abcabcbb")}")
     println("result is ${solution.lengthOfLongestSubstring("bbbbb")}")
     println("result is ${solution.lengthOfLongestSubstring("pwwkew")}")
