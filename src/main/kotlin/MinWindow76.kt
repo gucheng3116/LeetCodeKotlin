@@ -1,5 +1,8 @@
 class MinWindow76 {
     fun minWindow(s: String, t: String): String {
+        if (t.isEmpty()) {
+            return ""
+        }
         val tCharMap = HashMap<Char, Int>()
         t.forEach {
             tCharMap[it] = (tCharMap[it] ?: 0) + 1
@@ -21,50 +24,49 @@ class MinWindow76 {
         var minLength = Int.MAX_VALUE
         var minString = ""
         for (i in s.indices) {
-            if (state == 0 && !tCharMap.contains(s[i])) {
-                continue
-            } else if (state == 0 && tCharMap.contains(s[i])) {
-                l = i
-                sCharMap[s[i]] = 1
-                state = 1 // find first l
-                if (containsStringMap(tCharMap, sCharMap, t.length, 1)) {
-                    minString = s.substring(i, i + 1)
-                }
-            } else if (state == 1) {
-                sCharMap[s[i]] = (sCharMap[s[i]] ?: 0) + 1
-                if (containsStringMap(tCharMap, sCharMap, t.length, i - l + 1)) {
-                    r = i
-                    state = 2 //found
-                    if (i - l + 1 < minLength) {
-                        minLength = i - l + 1
-                        minString = s.substring(l, r + 1)
+            when {
+                state == 0 && !tCharMap.contains(s[i]) -> continue
+                state == 0 && tCharMap.contains(s[i]) -> {
+                    l = i
+                    sCharMap[s[i]] = 1
+                    state = 1 // find first l
+                    if (containsStringMap(tCharMap, sCharMap, t.length, 1)) {
+                        minString = s.substring(i, i + 1)
+                        break
                     }
+                }
+                state == 1 -> {
+                    sCharMap[s[i]] = (sCharMap[s[i]] ?: 0) + 1
+                    if (containsStringMap(tCharMap, sCharMap, t.length, i - l + 1)) {
+                        r = i
+                        state = 2 //found
+                        if (i - l + 1 < minLength) {
+                            minLength = i - l + 1
+                            minString = s.substring(l, r + 1)
+                        }
 
-                    // shrink left
-                    // when contains, update minString and minLength
-                    // when not contains, extend r
-                    while (l < r) {
-                        sCharMap[s[l]] = (sCharMap[s[l]]?:0) - 1
-                        l++
-                        if (containsStringMap(tCharMap, sCharMap, t.length, r-l+1)) {
-                            if (r-l+1 < minLength) {
-                                minLength = r-l+1
-                                minString = s.substring(l, r + 1)
+                        // shrink left
+                        // when contains, update minString and minLength
+                        // when not contains, extend r
+                        while (l < r) {
+                            sCharMap[s[l]] = (sCharMap[s[l]]?:0) - 1
+                            l++
+                            if (containsStringMap(tCharMap, sCharMap, t.length, r-l+1)) {
+                                if (r-l+1 < minLength) {
+                                    minLength = r-l+1
+                                    minString = s.substring(l, r + 1)
+                                }
+                            } else {
+                                state = 1
+                                break
                             }
-                        } else {
-                            state = 1
-                            break
                         }
                     }
                 }
-            } else {
-                println("state is $state")
+                else -> {
+                    println("state is $state")
+                }
             }
-//            when {
-//                state == 0 && !tCharMap.contains(s[i]) -> continue
-//                state == 0 && tCharMap.contains(s[i])
-//            }
-
         }
         println("minString is $minString")
         return minString
