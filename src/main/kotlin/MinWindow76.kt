@@ -10,15 +10,6 @@ class MinWindow76 {
         val sCharMap = HashMap<Char, Int>()
         var l = 0
         var r: Int
-//        while (r < s.length) {
-//            if (!tCharMap.contains(s[l])) {
-//                l++
-//                r++
-//            } else {
-//                sCharMap[s[l]] = 1
-//            }
-//
-//        }
         var state = 0 //0 init, 1 l is found,to find 2, 3:shrink left 4.
 
         var minLength = Int.MAX_VALUE
@@ -64,11 +55,11 @@ class MinWindow76 {
                     }
                 }
                 else -> {
-                    println("state is $state")
+//                    println("state is $state")
                 }
             }
         }
-        println("minString is $minString")
+//        println("minString is $minString")
         return minString
     }
 
