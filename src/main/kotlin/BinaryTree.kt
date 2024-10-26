@@ -1,6 +1,4 @@
-import sun.misc.Queue
-import java.util.LinkedList
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardUpLeftHandler
+import java.util.*
 
 /**
  * Example:
